@@ -1,7 +1,8 @@
 #ifndef MODELNODE_H
 #define MODELNODE_H
 
-#include <QGLSceneNode>
+#include "qglabstractscene.h"
+
 
 class modelNode : public QGLSceneNode
 {

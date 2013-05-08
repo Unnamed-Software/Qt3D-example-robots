@@ -1,18 +1,10 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2013-05-09T00:41:51
-#
-#-------------------------------------------------
-
-QT       += core
-
-QT       -= gui
 
 TARGET = Robots3D
-CONFIG   += console
-CONFIG   -= app_bundle
-
+CONFIG += qt warn_on qt3d qthread thread
 TEMPLATE = app
+QT+=opengl declarative
+CONFIG += qt3dquick
+
 
 
 SOURCES += main.cpp \
