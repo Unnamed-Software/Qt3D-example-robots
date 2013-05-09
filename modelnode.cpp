@@ -1,6 +1,6 @@
 #include "modelnode.h"
 
-modelNode::modelNode(QObject *parent) :
+modelNode::modelNode(QWidget *parent) :
     QGLSceneNode(parent)
 {
 }

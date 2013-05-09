@@ -1,10 +1,12 @@
-#include <QCoreApplication>
-#include <QDebug>
+#include <QApplication>
+#include "worldview.h"
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
     
-    qDebug()<<"HELLO World";
+    worldView world;
+
+    world.showMaximized();
 
     return a.exec();
 }

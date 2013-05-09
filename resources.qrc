@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/21889.jpg</file>
+        <file>Images/Plane.3ds</file>
+        <file>Images/bbri.jpg</file>
+        <file>Images/Arm.3ds</file>
+        <file>Images/Body.3ds</file>
+        <file>Images/Head.3ds</file>
+        <file>Images/images.jpg</file>
+        <file>Images/Leg.3ds</file>
+    </qresource>
+</RCC>
