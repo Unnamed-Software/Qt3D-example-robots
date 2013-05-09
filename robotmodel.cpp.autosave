@@ -1,6 +1,0 @@
-#include "robotmodel.h"
-
-robotModel::robotModel()
-{
-    head = QGLAbstractScene::loadScene()
-}

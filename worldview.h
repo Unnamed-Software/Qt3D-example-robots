@@ -5,6 +5,7 @@
 #include "qglpainter.h"
 #include "qglabstractscene.h"
 #include "modelnode.h"
+#include "robotmodel.h"
 
 class worldView : public QGLView
 {

@@ -11,6 +11,7 @@ robotModel::robotModel()
     right_leg = QGLAbstractScene::loadScene(":/Images/Leg.3ds")->mainNode()->clone();
 
     add_parts();
+
 }
 
 void robotModel::add_parts()
