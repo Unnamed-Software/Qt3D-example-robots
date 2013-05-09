@@ -7,6 +7,7 @@ class robotModel : public modelNode
 {
 public:
     robotModel();
+
 private:
     // Robot parts.
     QGLSceneNode *head;
@@ -15,6 +16,8 @@ private:
     QGLSceneNode *right_arm;
     QGLSceneNode *left_leg;
     QGLSceneNode *right_leg;
+
+    void add_parts();
 
 };
 
