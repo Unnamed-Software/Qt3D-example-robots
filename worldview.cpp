@@ -35,6 +35,31 @@ void worldView::initializeGL(QGLPainter *painter)
 
     node->setPosition(QVector3D(10,10,-8));
 
+
+
+    connect(node,SIGNAL(updated()),this,SLOT(update()));
+
     add_model(node);
 
+}
+
+void worldView::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key() == Qt::Key_Up)
+    {
+
+    }
+    if(e->key() == Qt::Key_Down)
+    {
+
+    }
+    if(e->key() == Qt::Key_Right)
+    {
+
+
+    }
+    if(e->key() == Qt::Key_Left)
+    {
+
+    }
 }

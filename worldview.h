@@ -6,6 +6,7 @@
 #include "qglabstractscene.h"
 #include "modelnode.h"
 #include "robotmodel.h"
+#include <QKeyEvent>
 
 class worldView : public QGLView
 {
@@ -22,7 +23,7 @@ private:
 protected:
     void paintGL(QGLPainter *painter);
     void initializeGL(QGLPainter *painter);
-    
+    void keyPressEvent(QKeyEvent *e);
 signals:
     
 public slots:
