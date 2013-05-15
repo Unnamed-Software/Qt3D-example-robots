@@ -12,10 +12,11 @@ class robotModel : public modelNode
 public:
     robotModel();
 
+    void SetUpAnimation(int speed);
+    void walk(int dir);
 
-    QPropertyAnimation* turnAnimation(int speed, int degree);
 private:
-    // Robot parts.
+    //Robot parts.
     QGLSceneNode *head;
     QGLSceneNode *body;
     QGLSceneNode *left_arm;
@@ -23,35 +24,37 @@ private:
     QGLSceneNode *left_leg;
     QGLSceneNode *right_leg;
 
-    // Parts rotations.
+    //Parts rotations.
     QGraphicsRotation3D *direction;
-
     QGraphicsRotation3D *rotationLA;
     QGraphicsRotation3D *rotationRA;
     QGraphicsRotation3D *rotationLL;
     QGraphicsRotation3D *rotationRL;
 
-    void add_parts();
+    //Move animation.
+    QPropertyAnimation *move_up;
+    QPropertyAnimation *move_down;
+    QPropertyAnimation *move_left;
+    QPropertyAnimation *move_right;
 
-    // Walking animation.
+    //Turn animation.
+    QPropertyAnimation *turnTo_up;
+    QPropertyAnimation *turnTo_down;
+    QPropertyAnimation *turnTo_left;
+    QPropertyAnimation *turnTo_right;
 
-    QParallelAnimationGroup *walk;
+    //Walking animation.
+    QSequentialAnimationGroup *walk_down;
+    QSequentialAnimationGroup *walk_up;
+    QSequentialAnimationGroup *walk_right;
+    QSequentialAnimationGroup *walk_left;
+    QSequentialAnimationGroup *walking;
 
-    QParallelAnimationGroup *walk_down;
-    QParallelAnimationGroup *walk_up;
-    QParallelAnimationGroup *walk_right;
-    QParallelAnimationGroup *walk_left;
-
-
-    // Helper functions to initialize walk animation direction.
+    //Helper functions to initialize walk animation direction.
     QParallelAnimationGroup* walkAnimation(int speed);
 
-    QPropertyAnimation* moveAnimation(int speed, const QByteArray &propertyname, int step);
 
-
-
-    void initMoveWalkAnimation(int speed);
-
+    void add_parts();
 
 
 

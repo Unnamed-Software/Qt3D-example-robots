@@ -12,6 +12,7 @@ robotModel::robotModel()
 
     add_parts();
 
+
 }
 
 void robotModel::add_parts()
@@ -54,6 +55,8 @@ void robotModel::add_parts()
         direction = new QGraphicsRotation3D();
         direction->setAxis(QVector3D(0,0,1));
         addTransform(direction);
+
+        SetUpAnimation(200);
 
     }
 }
@@ -177,27 +180,108 @@ QParallelAnimationGroup *robotModel::walkAnimation(int speed)
     return syncWalk; // Completed 4 synchronized animations of right arm, left arm, left leg , right arm.
 }
 
-QPropertyAnimation *robotModel::moveAnimation(int speed,const QByteArray &propertyname, int step)
+
+
+void robotModel::walk(int dir)
 {
-    QPropertyAnimation *move_animation = new QPropertyAnimation(this, propertyname);
-    move_animation->setStartValue((propertyname=="y")?this->y():this->x());
-    move_animation->setEndValue((propertyname=="y")?this->y()+step:this->x()+step);
-    move_animation->setDuration(speed);
-    return move_animation;
+    if(walking->state() == QAbstractAnimation::Stopped)
+    switch(dir)
+    {
+        case 1:{
+                turnTo_up->setStartValue(direction->angle()); //
+                turnTo_up->setEndValue(180);                  //
+                move_up->setStartValue(this->y());            // updating values
+                move_up->setEndValue(this->y()-1);            //
+                walking = walk_up;                            //
+                walking->start();
+
+            break;
+        }
+        case 2:{
+                turnTo_down->setStartValue(direction->angle());
+                turnTo_down->setEndValue(0);
+                move_down->setStartValue(this->y());
+                move_down->setEndValue(this->y()+1);
+                walking = walk_down;
+                walking->start();
+            break;
+        }
+        case 3:{
+                turnTo_left->setStartValue(direction->angle());
+                turnTo_left->setEndValue(270);
+                move_left->setStartValue(this->x());
+                move_left->setEndValue(this->x()+1);
+                walking = walk_left;
+                walking->start();
+            break;
+        }
+    case 4:{
+                turnTo_right->setStartValue(direction->angle());
+                turnTo_right->setEndValue(90);
+                move_right->setStartValue(this->x());
+                move_right->setEndValue(this->x()-1);
+                walking = walk_right;
+                walking->start();
+            break;
+        }
+    }
 }
 
-QPropertyAnimation *robotModel::turnAnimation(int speed ,int degree)
+
+
+void robotModel::SetUpAnimation(int speed)
 {
-    QPropertyAnimation *turn_animation = new QPropertyAnimation(direction,"angle");
-    turn_animation->setStartValue(direction->angle());
-    turn_animation->setEndValue(degree);
-    turn_animation->setDuration(speed);
-    return turn_animation;
-}
+    QParallelAnimationGroup *sync = new QParallelAnimationGroup();
 
+    //up
+    walk_up = new QSequentialAnimationGroup;
+    turnTo_up = new QPropertyAnimation(direction,"angle");
+    turnTo_up->setDuration(speed/2);
+    walk_up->addAnimation(turnTo_up);
+    sync->addAnimation(walkAnimation(speed));
+    move_up = new QPropertyAnimation(this,"y");
+    move_up->setDuration(speed);
+    sync->addAnimation(move_up);
+    walk_up->addAnimation(sync);
 
+    //down
+    sync = new QParallelAnimationGroup();
 
-void robotModel::initMoveWalkAnimation(int speed)
-{
+    walk_down = new QSequentialAnimationGroup;
+    turnTo_down = new QPropertyAnimation(direction,"angle");
+    turnTo_down->setDuration(speed/2);
+    walk_down->addAnimation(turnTo_down);
+    sync->addAnimation(walkAnimation(speed));
+    move_down = new QPropertyAnimation(this,"y");
+    move_down->setDuration(speed);
+    sync->addAnimation(move_down);
+    walk_down->addAnimation(sync);
 
+    //left
+    sync = new QParallelAnimationGroup();
+
+    walk_left = new QSequentialAnimationGroup;
+    turnTo_left = new QPropertyAnimation(direction,"angle");
+    turnTo_left->setDuration(speed/2);
+    walk_left->addAnimation(turnTo_left);
+    sync->addAnimation(walkAnimation(speed));
+    move_left = new QPropertyAnimation(this,"x");
+    move_left->setDuration(speed);
+    sync->addAnimation(move_left);
+    walk_left->addAnimation(sync);
+
+    //right
+    sync = new QParallelAnimationGroup();
+
+    walk_right = new QSequentialAnimationGroup;
+    turnTo_right = new QPropertyAnimation(direction,"angle");
+    turnTo_right->setDuration(speed/2);
+    walk_right->addAnimation(turnTo_right);
+    sync->addAnimation(walkAnimation(speed));
+    move_right = new QPropertyAnimation(this,"x");
+    move_right->setDuration(speed);
+    sync->addAnimation(move_right);
+    walk_right->addAnimation(sync);
+
+    walking = walk_down;
 }

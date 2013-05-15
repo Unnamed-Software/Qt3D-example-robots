@@ -41,25 +41,33 @@ void worldView::initializeGL(QGLPainter *painter)
 
     add_model(node);
 
+
 }
 
 void worldView::keyPressEvent(QKeyEvent *e)
 {
+    robotModel *robot =(robotModel*) objects_list[0];
+
     if(e->key() == Qt::Key_Up)
     {
+
+        robot->walk(1);
 
     }
     if(e->key() == Qt::Key_Down)
     {
 
+        robot->walk(2);
+
     }
     if(e->key() == Qt::Key_Right)
     {
 
+        robot->walk(3);
 
     }
     if(e->key() == Qt::Key_Left)
     {
-
+        robot->walk(4);
     }
 }
