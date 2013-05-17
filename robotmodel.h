@@ -12,7 +12,7 @@ class robotModel : public modelNode
 public:
     robotModel();
 
-    void SetUpAnimation(int speed);
+
     void walk(int dir);
 
 private:
@@ -52,7 +52,7 @@ private:
 
     //Helper functions to initialize walk animation direction.
     QParallelAnimationGroup* walkAnimation(int speed);
-
+    void SetUpAnimation(int speed);
 
     void add_parts();
 

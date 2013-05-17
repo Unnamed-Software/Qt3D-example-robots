@@ -24,6 +24,7 @@ protected:
     void paintGL(QGLPainter *painter);
     void initializeGL(QGLPainter *painter);
     void keyPressEvent(QKeyEvent *e);
+    void mouseDoubleClickEvent(QMouseEvent *e);
 signals:
     
 public slots:
