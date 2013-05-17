@@ -3,12 +3,14 @@
 SOURCES += main.cpp \
     modelnode.cpp \
     worldview.cpp \
-    robotmodel.cpp
+    robotmodel.cpp \
+    primitiveai.cpp
 
 HEADERS += \
     modelnode.h \
     worldview.h \
-    robotmodel.h
+    robotmodel.h \
+    primitiveai.h
 
 TARGET = Robots3D
 CONFIG += qt warn_on qt3d qthread thread

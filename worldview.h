@@ -7,6 +7,7 @@
 #include "modelnode.h"
 #include "robotmodel.h"
 #include <QKeyEvent>
+#include "primitiveai.h"
 
 class worldView : public QGLView
 {
@@ -18,7 +19,8 @@ public:
 private:
     QGLSceneNode *world;
     QList<modelNode*> objects_list;
-
+    void run_primitiveAI();
+    void stop_primitiveAI();
 
 protected:
     void paintGL(QGLPainter *painter);

@@ -12,7 +12,7 @@ class robotModel : public modelNode
 public:
     robotModel();
 
-
+public slots:
     void walk(int dir);
 
 private:

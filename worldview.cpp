@@ -1,5 +1,6 @@
 #include "worldview.h"
 #include <qplane3d.h>
+#include <QList>
 worldView::worldView(QWidget *parent) :
     QGLView(parent)
 {
@@ -73,6 +74,16 @@ void worldView::keyPressEvent(QKeyEvent *e)
     if(e->key() == Qt::Key_Left)
     {
         robot->walk(4);
+    }
+    if(e->key() == Qt::Key_Space)
+    {
+
+        PrimitiveAI *ai = new PrimitiveAI(&objects_list,0);
+        robotModel *rob = (robotModel*)objects_list[0];
+
+        connect(ai,SIGNAL(go(int)),rob,SLOT(walk(int)));
+
+        ai->start();
     }
 }
 
