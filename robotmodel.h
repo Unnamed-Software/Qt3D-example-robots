@@ -11,11 +11,17 @@ class robotModel : public modelNode
 {
 public:
     robotModel();
-
+    int getID();
 public slots:
-    void walk(int dir);
+    void walk(int id , int dir);
+
 
 private:
+    //ID
+    void setID(int id);
+    static int count;
+    int id;
+
     //Robot parts.
     QGLSceneNode *head;
     QGLSceneNode *body;

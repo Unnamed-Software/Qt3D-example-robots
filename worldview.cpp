@@ -1,14 +1,26 @@
 #include "worldview.h"
 #include <qplane3d.h>
 #include <QList>
+#include <QFont>
 worldView::worldView(QWidget *parent) :
     QGLView(parent)
 {
+     ai = new PrimitiveAI(&objects_list);
 }
 
 void worldView::add_model(modelNode *model)
 {
     objects_list.append(model);
+}
+
+void worldView::run_primitiveAI()
+{
+    ai->resume();
+}
+
+void worldView::stop_primitiveAI()
+{
+    ai->pause();
 }
 
 void worldView::paintGL(QGLPainter *painter)
@@ -27,6 +39,11 @@ void worldView::paintGL(QGLPainter *painter)
         //qDebug()<<objects_list.length();
     }
 
+
+
+
+
+
 }
 
 void worldView::initializeGL(QGLPainter *painter)
@@ -36,16 +53,7 @@ void worldView::initializeGL(QGLPainter *painter)
     camera()->setEye(camera()->eye() + QVector3D(0.0f, 5.0f, 1.0f));
     setOption(QGLView::ObjectPicking,true);
 
-    robotModel *node = new robotModel;
-
-    node->setPosition(QVector3D(10,10,-8));
-
-
-
-    connect(node,SIGNAL(updated()),this,SLOT(update()));
-
-    add_model(node);
-
+    ai->start();
 
 }
 
@@ -56,34 +64,35 @@ void worldView::keyPressEvent(QKeyEvent *e)
     if(e->key() == Qt::Key_Up)
     {
 
-        robot->walk(1);
+        robot->walk(robot->getID(),1);
 
     }
     if(e->key() == Qt::Key_Down)
     {
 
-        robot->walk(2);
+        robot->walk(robot->getID(),2);
 
     }
     if(e->key() == Qt::Key_Right)
     {
 
-        robot->walk(3);
+        robot->walk(robot->getID(),3);
 
     }
     if(e->key() == Qt::Key_Left)
     {
-        robot->walk(4);
+        robot->walk(robot->getID(),4);
     }
     if(e->key() == Qt::Key_Space)
-    {
-
-        PrimitiveAI *ai = new PrimitiveAI(&objects_list,0);
-        robotModel *rob = (robotModel*)objects_list[0];
-
-        connect(ai,SIGNAL(go(int)),rob,SLOT(walk(int)));
-
-        ai->start();
+    {    
+        if(ai->paused)
+        {
+          run_primitiveAI();
+        }
+        else
+        {
+            stop_primitiveAI();
+        }
     }
 }
 
@@ -114,8 +123,12 @@ void worldView::mouseDoubleClickEvent(QMouseEvent *e)
     new_robot->setY(pointOnFloor.z()*5);
 
     connect(new_robot,SIGNAL(updated()),this,SLOT(update()));
+    connect(ai,SIGNAL(go(int,int)),new_robot,SLOT(walk(int,int)));
 
     add_model(new_robot);
+
+
+
 
 
 }

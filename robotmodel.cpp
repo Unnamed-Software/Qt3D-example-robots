@@ -1,5 +1,7 @@
 #include "robotmodel.h"
 
+int robotModel::count = 0;
+
 robotModel::robotModel()
 {
     // Load 3D model parts of robot.
@@ -12,7 +14,13 @@ robotModel::robotModel()
 
     add_parts();
 
+    this->count++;
+    setID(this->count);
+}
 
+int robotModel::getID()
+{
+    return this->id;
 }
 
 void robotModel::add_parts()
@@ -182,9 +190,9 @@ QParallelAnimationGroup *robotModel::walkAnimation(int speed)
 
 
 
-void robotModel::walk(int dir)
+void robotModel::walk(int id, int dir)
 {
-    if(walking->state() == QAbstractAnimation::Stopped)
+    if(walking->state() == QAbstractAnimation::Stopped && id == this->id)
     switch(dir)
     {
         case 1:{
@@ -225,6 +233,12 @@ void robotModel::walk(int dir)
             break;
         }
     }
+
+}
+
+void robotModel::setID(int id)
+{
+    this->id = id;
 }
 
 

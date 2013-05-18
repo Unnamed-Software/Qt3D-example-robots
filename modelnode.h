@@ -24,7 +24,7 @@ private:
 signals:
     
 public slots:
-    virtual void walk(int) = 0;
+    virtual void walk(int,int) = 0;
 };
 
 #endif // MODELNODE_H

@@ -21,6 +21,7 @@ private:
     QList<modelNode*> objects_list;
     void run_primitiveAI();
     void stop_primitiveAI();
+    PrimitiveAI *ai;
 
 protected:
     void paintGL(QGLPainter *painter);
