@@ -13,8 +13,16 @@ class robotModel : public modelNode
 public:
     robotModel();
     int getID();
+    //Pick nodes
+    QList<QGLPickNode*> picklist;
+
+    bool isCurrent();
+
 public slots:
     void walk(int id , int dir);
+
+    //Set current robot.
+    void setCurrent();
 
 
 private:
@@ -61,11 +69,12 @@ private:
     QParallelAnimationGroup* walkAnimation(int speed);
     void SetUpAnimation(int speed);
 
-    // INIT
+    //INIT
     void add_parts();
 
-    //Pick nodes
-    QList<QGLPickNode*> picklist;
+
+
+
 
 
 

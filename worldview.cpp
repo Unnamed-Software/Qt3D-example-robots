@@ -2,11 +2,15 @@
 #include <qplane3d.h>
 #include <QList>
 #include <QFont>
+
+static worldView::current = NULL;
+
 worldView::worldView(QWidget *parent) :
     QGLView(parent)
 {
      ai = new PrimitiveAI(&objects_list);
      connect(this,SIGNAL(destroyed()),ai,SLOT(deleteLater()));
+     pick_id=0;
 }
 
 void worldView::add_model(modelNode *model)
@@ -92,7 +96,7 @@ void worldView::keyPressEvent(QKeyEvent *e)
         }
         else
         {
-            stop_primitiveAI();
+           stop_primitiveAI();
         }
     }
 }
@@ -125,6 +129,13 @@ void worldView::mouseDoubleClickEvent(QMouseEvent *e)
 
     connect(new_robot,SIGNAL(updated()),this,SLOT(update()));
     connect(ai,SIGNAL(go(int,int)),new_robot,SLOT(walk(int,int)));
+
+    for(int i=0;i<new_robot->picklist.length();i++)
+    {
+        pick_id++;
+        new_robot->picklist[i]->setId(pick_id);
+        registerObject(pick_id,new_robot->picklist[i]);
+    }
 
     add_model(new_robot);
 

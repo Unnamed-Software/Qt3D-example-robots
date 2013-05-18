@@ -39,7 +39,7 @@ void PrimitiveAI::run()
         {
 
             robotModel *rob = (robotModel*)(*list)[i];
-            emit go(rob->getID(),rand()%4);
+            emit go(rob->getID(),(rand()%4)+1);
 
         }
 

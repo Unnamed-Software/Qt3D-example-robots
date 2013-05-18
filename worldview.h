@@ -22,6 +22,8 @@ private:
     void run_primitiveAI();
     void stop_primitiveAI();
     PrimitiveAI *ai;
+    int pick_id;
+    robotModel *current;
 
 protected:
     void paintGL(QGLPainter *painter);
