@@ -5,12 +5,36 @@ int robotModel::count = 0;
 robotModel::robotModel()
 {
     // Load 3D model parts of robot.
-    head = QGLAbstractScene::loadScene(":/Images/Head.3ds")->mainNode();
-    body = QGLAbstractScene::loadScene(":/Images/Body.3ds")->mainNode();
-    left_arm = QGLAbstractScene::loadScene(":/Images/Arm.3ds")->mainNode();
-    left_leg = QGLAbstractScene::loadScene(":/Images/Leg.3ds")->mainNode();
-    right_arm = QGLAbstractScene::loadScene(":/Images/Arm.3ds")->mainNode()->clone();
-    right_leg = QGLAbstractScene::loadScene(":/Images/Leg.3ds")->mainNode()->clone();
+    QGLAbstractScene *Head = QGLAbstractScene::loadScene(":/Images/Head.3ds");
+    QGLAbstractScene *Body = QGLAbstractScene::loadScene(":/Images/Body.3ds");
+    QGLAbstractScene *Arm = QGLAbstractScene::loadScene(":/Images/Arm.3ds");
+    QGLAbstractScene *Leg = QGLAbstractScene::loadScene(":/Images/Leg.3ds");
+
+
+
+    head = Head->mainNode();
+    body = Body->mainNode();
+    left_arm = Arm->mainNode();
+    right_arm = Arm->mainNode()->clone();
+    left_leg =Leg->mainNode();
+    right_leg = Leg->mainNode()->clone();
+
+
+    //Generate pick nodes.
+    Head->generatePickNodes();
+    picklist.append(Head->pickNodes());
+
+    Body->generatePickNodes();
+    picklist.append(Body->pickNodes());
+
+    Arm->generatePickNodes();
+    picklist.append(Arm->pickNodes());
+
+    Leg->generatePickNodes();
+    picklist.append(Leg->pickNodes());
+
+
+
 
     add_parts();
 
@@ -68,6 +92,8 @@ void robotModel::add_parts()
 
     }
 }
+
+
 
 
 // We need to manualy set degrees of deviation leg and arm.

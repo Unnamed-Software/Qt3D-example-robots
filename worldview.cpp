@@ -6,6 +6,7 @@ worldView::worldView(QWidget *parent) :
     QGLView(parent)
 {
      ai = new PrimitiveAI(&objects_list);
+     connect(this,SIGNAL(destroyed()),ai,SLOT(deleteLater()));
 }
 
 void worldView::add_model(modelNode *model)

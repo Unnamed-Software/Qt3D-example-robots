@@ -7,6 +7,7 @@
 #include <QSequentialAnimationGroup>
 #include <QPropertyAnimation>
 #include <QDebug>
+#include <qglpicknode.h>
 class robotModel : public modelNode
 {
 public:
@@ -60,7 +61,11 @@ private:
     QParallelAnimationGroup* walkAnimation(int speed);
     void SetUpAnimation(int speed);
 
+    // INIT
     void add_parts();
+
+    //Pick nodes
+    QList<QGLPickNode*> picklist;
 
 
 
