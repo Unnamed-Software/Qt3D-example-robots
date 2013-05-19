@@ -15,6 +15,8 @@ class worldView : public QGLView
 public:
     explicit worldView(QWidget *parent = 0);
     void add_model(modelNode *model);
+    static modelNode *current;
+
 
 private:
     QGLSceneNode *world;
@@ -23,7 +25,7 @@ private:
     void stop_primitiveAI();
     PrimitiveAI *ai;
     int pick_id;
-    robotModel *current;
+
 
 protected:
     void paintGL(QGLPainter *painter);
@@ -33,6 +35,7 @@ protected:
 signals:
     
 public slots:
+
     
 };
 

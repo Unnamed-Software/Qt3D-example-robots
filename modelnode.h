@@ -25,6 +25,7 @@ signals:
     
 public slots:
     virtual void walk(int,int) = 0;
+    virtual void setCurrent() = 0;
 };
 
 #endif // MODELNODE_H

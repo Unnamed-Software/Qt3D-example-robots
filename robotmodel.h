@@ -8,6 +8,7 @@
 #include <QPropertyAnimation>
 #include <QDebug>
 #include <qglpicknode.h>
+#include "worldview.h"
 class robotModel : public modelNode
 {
 public:
@@ -15,8 +16,12 @@ public:
     int getID();
     //Pick nodes
     QList<QGLPickNode*> picklist;
+    //Select
+    QGLSceneNode *star;
 
     bool isCurrent();
+
+
 
 public slots:
     void walk(int id , int dir);
@@ -38,6 +43,7 @@ private:
     QGLSceneNode *right_arm;
     QGLSceneNode *left_leg;
     QGLSceneNode *right_leg;
+
 
     //Parts rotations.
     QGraphicsRotation3D *direction;
@@ -71,6 +77,8 @@ private:
 
     //INIT
     void add_parts();
+
+
 
 
 

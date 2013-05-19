@@ -10,7 +10,7 @@ robotModel::robotModel()
     QGLAbstractScene *Arm = QGLAbstractScene::loadScene(":/Images/Arm.3ds");
     QGLAbstractScene *Leg = QGLAbstractScene::loadScene(":/Images/Leg.3ds");
 
-
+    star = QGLAbstractScene::loadScene(":/Images/Current.3ds")->mainNode();
 
     head = Head->mainNode();
     body = Body->mainNode();
@@ -45,6 +45,11 @@ robotModel::robotModel()
 int robotModel::getID()
 {
     return this->id;
+}
+
+bool robotModel::isCurrent()
+{
+    return (worldView::current == this)?true:false;
 }
 
 void robotModel::add_parts()
@@ -88,10 +93,37 @@ void robotModel::add_parts()
         direction->setAxis(QVector3D(0,0,1));
         addTransform(direction);
 
+        QGraphicsRotation3D *rotation = new QGraphicsRotation3D();
+
+        rotation->setAxis(QVector3D(1,0,0));
+        rotation->setAngle(-90.0f);
+
+        star->addTransform(rotation);
+        star->setZ(7.9f);
+
         SetUpAnimation(200);
 
     }
 }
+
+void robotModel::setCurrent()
+{
+
+    if(worldView::current==NULL)
+    {
+        worldView::current = this;
+        addNode(star);
+     }
+     else
+     {
+        robotModel *robot = (robotModel*)worldView::current;
+        robot->removeNode(robot->star);
+        addNode(star);
+        worldView::current = this;
+      }
+
+}
+
 
 
 

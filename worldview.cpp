@@ -3,7 +3,7 @@
 #include <QList>
 #include <QFont>
 
-static worldView::current = NULL;
+modelNode* worldView::current = NULL;
 
 worldView::worldView(QWidget *parent) :
     QGLView(parent)
@@ -64,41 +64,33 @@ void worldView::initializeGL(QGLPainter *painter)
 
 void worldView::keyPressEvent(QKeyEvent *e)
 {
-    robotModel *robot =(robotModel*) objects_list[0];
-
-    if(e->key() == Qt::Key_Up)
+    robotModel *current = (robotModel*)this->current;
+    if(current != NULL)
+    switch(e->key())
     {
+        case Qt::Key_Up:
+                       current->walk(current->getID(),1);
+                       break;
+        case Qt::Key_Down:
+                       current->walk(current->getID(),2);
+                       break;
 
-        robot->walk(robot->getID(),1);
+        case Qt::Key_Right:
+                        current->walk(current->getID(),3);
+                        break;
 
+        case Qt::Key_Left:
+                        current->walk(current->getID(),4);
+                        break;
+
+        case Qt::Key_Space:
+                        if(ai->paused)
+                          run_primitiveAI();
+                        else
+                           stop_primitiveAI();
+                        break;
     }
-    if(e->key() == Qt::Key_Down)
-    {
 
-        robot->walk(robot->getID(),2);
-
-    }
-    if(e->key() == Qt::Key_Right)
-    {
-
-        robot->walk(robot->getID(),3);
-
-    }
-    if(e->key() == Qt::Key_Left)
-    {
-        robot->walk(robot->getID(),4);
-    }
-    if(e->key() == Qt::Key_Space)
-    {    
-        if(ai->paused)
-        {
-          run_primitiveAI();
-        }
-        else
-        {
-           stop_primitiveAI();
-        }
-    }
 }
 
 void worldView::mouseDoubleClickEvent(QMouseEvent *e)
@@ -135,6 +127,8 @@ void worldView::mouseDoubleClickEvent(QMouseEvent *e)
         pick_id++;
         new_robot->picklist[i]->setId(pick_id);
         registerObject(pick_id,new_robot->picklist[i]);
+
+        connect(new_robot->picklist[i],SIGNAL(clicked()),new_robot,SLOT(setCurrent()));
     }
 
     add_model(new_robot);

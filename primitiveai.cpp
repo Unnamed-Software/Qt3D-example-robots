@@ -39,10 +39,11 @@ void PrimitiveAI::run()
         {
 
             robotModel *rob = (robotModel*)(*list)[i];
+            if(!rob->isCurrent())
             emit go(rob->getID(),(rand()%4)+1);
 
         }
 
-        msleep(300);
+        msleep(200);
     }
 }

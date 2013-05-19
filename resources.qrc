@@ -8,5 +8,6 @@
         <file>Images/Head.3ds</file>
         <file>Images/images.jpg</file>
         <file>Images/Leg.3ds</file>
+        <file>Images/Current.3ds</file>
     </qresource>
 </RCC>
