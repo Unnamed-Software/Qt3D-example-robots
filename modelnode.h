@@ -10,12 +10,12 @@ class modelNode : public QGLSceneNode
 public:
     explicit modelNode(QWidget *parent = 0);
     //Getters & Setters methods.
-//    virtual void setWidth(float *width)=0;
-//    virtual void setHeight(float *height)=0;
-//    virtual void setHigh(float *heigh)=0;
-//    virtual float getWidth()=0;
-//    virtual float getHeight()=0;
-//    virtual float getHigh()=0;
+    virtual void setWidth(float width);
+    virtual void setHeight(float height);
+    virtual void setHigh(float high);
+    virtual float getWidth();
+    virtual float getHeight();
+    virtual float getHigh();
 private:
     float width;
     float height;

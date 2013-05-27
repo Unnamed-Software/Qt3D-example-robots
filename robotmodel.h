@@ -23,6 +23,8 @@ public:
 
 
 
+
+
 public slots:
     void walk(int id , int dir);
 
