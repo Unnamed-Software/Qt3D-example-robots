@@ -81,8 +81,9 @@ private:
     void add_parts();
 
 
+signals:
 
-
+    void check_me( modelNode *me);
 
 
 

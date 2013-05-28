@@ -34,3 +34,14 @@ float modelNode::getHigh()
 {
     return high;
 }
+
+void modelNode::setID(int id)
+{
+    this->id = id;
+}
+
+
+int modelNode::getID()
+{
+    return this->id;
+}

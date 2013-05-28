@@ -35,6 +35,7 @@ protected:
 signals:
     
 public slots:
+     bool detectCollision(modelNode *sender);
 
     
 };

@@ -16,10 +16,13 @@ public:
     virtual float getWidth();
     virtual float getHeight();
     virtual float getHigh();
+    virtual void setID(int id);
+    virtual int getID();
 private:
     float width;
     float height;
     float high;
+    int id;
 
 signals:
     

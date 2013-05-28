@@ -121,6 +121,7 @@ void worldView::mouseDoubleClickEvent(QMouseEvent *e)
 
     connect(new_robot,SIGNAL(updated()),this,SLOT(update()));
     connect(ai,SIGNAL(go(int,int)),new_robot,SLOT(walk(int,int)));
+    connect(new_robot,SIGNAL(check_me(modelNode*)),this,SLOT(detectCollision(modelNode*)));
 
     for(int i=0;i<new_robot->picklist.length();i++)
     {
@@ -137,4 +138,41 @@ void worldView::mouseDoubleClickEvent(QMouseEvent *e)
 
 
 
+}
+
+float ret_dist(float x1, float x2)
+{
+    float dist = x1-x2;
+    if(dist < 0)
+    {
+        dist = -dist;
+    }
+    return dist;
+}
+
+
+
+bool collide(modelNode *first,modelNode *second)
+{
+    float distanceX = ret_dist(first->x(),second->x());
+    float distanceY = ret_dist(first->y(),second->y());
+
+    qDebug()<< distanceX << " : " << distanceY;
+
+    if(distanceX <5.0 && distanceY <5.0)
+    {
+        return true;
+    }else return false;
+
+}
+
+bool worldView::detectCollision(modelNode *sender)
+{
+    for(int i=0; i<objects_list.length() ; i++)
+    {
+        if(sender->getID() != objects_list[i]->getID())
+            collide(sender,objects_list[i]);
+    }
+
+    return true;
 }
